@@ -169,6 +169,7 @@ namespace WindowsFormsApp1
             this.Text = "Comp 1551";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label Input;

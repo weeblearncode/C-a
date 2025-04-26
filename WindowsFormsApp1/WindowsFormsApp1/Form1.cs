@@ -83,7 +83,7 @@ namespace WindowsFormsApp1
                 string sortedInput = new string(input.OrderBy(c => c).ToArray());
 
                 // Display the sorted result in the Sort label
-                Sort.Text = $"Sort = \"{sortedInput}\"";
+                Sort.Text = sortedInput;
             }
             catch (Exception ex)
             {
@@ -125,11 +125,11 @@ namespace WindowsFormsApp1
         {
             try
             {
-                // Get all items from listBox1 and concatenate them into a single string
-                string output = string.Join(Environment.NewLine, ASCII.Items.Cast<string>());
+                // Get the input string from the Textinput TextBox
+                string input = _encodedResult;
 
-                // Display the concatenated string in a MessageBox
-                MessageBox.Show(output, "ASCII Codes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Call the DisplayAsciiInListBox function to show ASCII codes in listBox1
+                DisplayAsciiInListBox(input);
             }
             catch (Exception ex)
             {
@@ -137,6 +137,8 @@ namespace WindowsFormsApp1
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+    
     }
 
     public class StringEncoder
@@ -285,11 +287,11 @@ namespace WindowsFormsApp1
             return _inputString.Select(c => $"{c} -> {((int)c)}").ToArray();
         }
 
-        public static void Main(string[] args)
+        public void Test()
         {
             try
             {
-                // Test 1: Encode and Decode
+                // Test 1: Encode
                 Console.WriteLine("Enter input string (capital letters only, max 40 characters):");
                 string inputString = Console.ReadLine();
                 Console.WriteLine("Enter offset value (-25 to 25):");
@@ -305,17 +307,6 @@ namespace WindowsFormsApp1
                 // Encode the input string
                 string encodedResult = processor.Encode();
                 Console.WriteLine($"Encoded Result: {encodedResult}");
-
-                // Decode the encoded result
-                processor.InputString = encodedResult;
-                processor.Offset = -offset; // Reverse the offset
-                string decodedResult = processor.Decode();
-                Console.WriteLine($"Decoded Result: {decodedResult}");
-
-                // Verify if the decoded result matches the original input
-                Console.WriteLine(decodedResult == inputString
-                    ? "Test Passed: Decoded result matches the original input."
-                    : "Test Failed: Decoded result does not match the original input.");
 
                 // Test 2: Sort the input string
                 processor.InputString = inputString; // Reset to original input
